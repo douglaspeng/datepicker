@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="datepicker.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <div id="center">
+      <div id="date"></div>
+      <div id="selected"></div>
+    </div>
+
+    <script src="datepicker.js"></script>
+    <script>
+      new Datepicker(document.getElementById('date'), {
+        onDateChanged: function (newDate) {
+          document.getElementById('selected').innerHTML = newDate;
+        }
+      });
+    </script>
+
+  </body>
+</html>
