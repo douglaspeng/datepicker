@@ -1,6 +1,8 @@
  var Datepicker = (function () {
 
-  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  var DAYS_A_WEEK = 7
+    , MAX_WEEKS_IN_MONTH = 6
+    , months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     , days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
     , today = new Date();
 
@@ -14,7 +16,7 @@
     return monthDays[month]
   }
 
-  function construct(element, options) {
+  function constructor(element, options) {
     var _this = this;
 
     options = options || {};
@@ -22,8 +24,9 @@
     this.onDateChanged = options.onDateChanged;
     this.container = element;
     this.months = options.months || months;
-    this.days = options.days || days;
+    this.dayNames = options.dayNames || days;
 
+    /* Calendar DOM element tree */
     this.elements = [];
     /* Year */
     this.elements[0] = { tag: 'div', children: [], class: 'year' };
@@ -35,15 +38,16 @@
     this.elements[1]['children'][0] = { tag: 'a', class: 'dec', onclick: function () { _this.incrementMonth(-1); return false; } };
     this.elements[1]['children'][1] = { tag: 'a', class: 'inc', onclick: function () { _this.incrementMonth(1); return false; } }
     this.elements[1]['children'][2] = { tag: 'label', value: function () { return _this.months[_this.selectedDate.getMonth()]; } };
-    /* Days */
+    /* Day names */
     this.elements[2] = { tag: 'div', children: [], class: 'days-names' }
-    for (var i = 0; i < 7; i++) {
-      this.elements[2]['children'][i] = { tag: 'label', value: _this.days[i] };
+    for (var i = 0; i < DAYS_A_WEEK; i++) {
+      this.elements[2]['children'][i] = { tag: 'label', value: _this.dayNames[i] };
     }
+    /* Dates */
     this.elements[3] = { tag: 'div', children: [], class: 'days' };
-    for (var i = 0; i < 6; i++) {
+    for (var i = 0; i < MAX_WEEKS_IN_MONTH; i++) {
       this.elements[3]['children'][i] = { tag: 'div', children: [], class: 'days-row' }
-      for (var j = 0; j < 7; j++) {
+      for (var j = 0; j < DAYS_A_WEEK; j++) {
         this.elements[3]['children'][i]['children'][j] = { tag: 'div', data: { row: i, col: j }, beforebuild: _this.buildDay };
       }
     }
@@ -51,13 +55,13 @@
     this.setSelectedDate(today);
   }
 
-  construct.prototype.incrementMonth = function (amount) {
+  constructor.prototype.incrementMonth = function (amount) {
     var month = this.selectedDate.getMonth();
     this.selectedDate.setMonth(month + amount);
     this.buildAll();
   };
 
-  construct.prototype.setSelectedDate = function (date) {
+  constructor.prototype.setSelectedDate = function (date) {
     this.selectedDate = date;
     this.buildAll();
     if (typeof this.onDateChanged === 'function') {
@@ -65,7 +69,7 @@
     }
   };
 
-  construct.prototype.buildDay = function (node) {
+  constructor.prototype.buildDay = function (node) {
     var _this = this
       , firstDay = new Date(this.selectedDate)
       , currentDay = new Date(this.selectedDate)
@@ -74,7 +78,7 @@
       , offset, index;
 
     firstDay.setDate(1);
-    index = (data.col + 1 + (data.row * 7)) - firstDay.getDay();
+    index = (data.col + 1 + (data.row * DAYS_A_WEEK)) - firstDay.getDay();
     currentDay.setDate(index);
     value = currentDay.getDate();
 
@@ -92,15 +96,15 @@
     node['value'] = currentDay.getDate();
   };
 
-  construct.prototype.build = function (node) {
-    var datepicker = this;
+  constructor.prototype.build = function (node) {
+    var _this = this;
 
     function buildNode(node) {
       var element, i, max;
 
       /* Run before build */
       if ('beforebuild' in node) {
-        node['beforebuild'].call(datepicker, node);
+        node['beforebuild'].call(_this, node);
       }
 
       /* Create the element */
@@ -145,13 +149,13 @@
     return buildNode(node);
   };
 
-  construct.prototype.buildAll = function () {
+  constructor.prototype.buildAll = function () {
     /* Build one by one */
     for (var i = 0, max = this.elements.length; i < max; i++) {
       this.container.appendChild(this.build(this.elements[i]));
     }
   };
 
-  return construct;
+  return constructor;
 
 }());
