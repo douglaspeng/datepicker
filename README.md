@@ -18,17 +18,28 @@ var elem = document.querySelector('#date');
 new Datepicker(elem);
 ```
 
+With jQuery:
+
+* Include
+```
+<script src="jquery.datepicker.js"></script>
+```
+* Apply
+```
+$('#date').datepicker();
+```
+
 Actually getting a date from datepicker
 ----------
 
-Each time the date changes and when it first starts up, the `onDateChange` option will be called with the selected date as its first argument.
+Each time the date changes and when it first starts up, the `onDateChanged` option will be called with the selected date as its first argument.
 
 Pass it an options object as the second argument.
 
 ```javascript
 /* Print the new date on the console */
 new Datepicker(elem, {
-  onDateChange: function (newDate) {
+  onDateChanged: function (newDate) {
     console.log(newDate);
   }
 });
@@ -42,7 +53,7 @@ Override names of months...
 ```javascript
 /* Months in spanish */
 new Datepicker(elem, {
-  onDateChange: function (newDate) {
+  onDateChanged: function (newDate) {
     console.log(newDate);
   }
   monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre']
@@ -54,7 +65,7 @@ new Datepicker(elem, {
 ```javascript
 /* Months and days in spanish */
 new Datepicker(elem, {
-  onDateChange: function (newDate) {
+  onDateChanged: function (newDate) {
     console.log(newDate);
   }
   monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'],
