@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="../datepicker.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <div id="center">
+      <div id="date"></div>
+      <div id="selected"></div>
+    </div>
+
+    <script src="jquery.js"></script>
+    <script src="jquery.datepicker.js"></script>
+    <script>
+      $('#date').datepicker({
+        onDateChanged: function (newDate) {
+          $('#selected').html(newDate);
+        }
+      });
+    </script>
+
+  </body>
+</html>
