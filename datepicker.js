@@ -4,9 +4,13 @@
     , days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
     , today = new Date();
 
+  function isLeapYear(year) {
+    return year % 4 === 0 && !(year % 100 === 0 && year % 400 != 0)
+  }
+
   function monthDays(date) {
-    var monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-      , month = date.getMonth();
+    var month = date.getMonth()
+      , monthDays = [31, isLeapYear(date.getFullYear()) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     return monthDays[month]
   }
 
