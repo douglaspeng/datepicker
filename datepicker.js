@@ -23,7 +23,7 @@
 
     this.onDateChanged = options.onDateChanged;
     this.container = element;
-    this.months = options.months || months;
+    this.monthNames = options.monthNames || months;
     this.dayNames = options.dayNames || days;
 
     /* Calendar DOM element tree */
@@ -37,7 +37,7 @@
     this.elements[1] = { tag: 'div', children: [], class: 'month' };
     this.elements[1]['children'][0] = { tag: 'a', class: 'dec', onclick: function () { _this.incrementMonth(-1); return false; } };
     this.elements[1]['children'][1] = { tag: 'a', class: 'inc', onclick: function () { _this.incrementMonth(1); return false; } }
-    this.elements[1]['children'][2] = { tag: 'label', value: function () { return _this.months[_this.selectedDate.getMonth()]; } };
+    this.elements[1]['children'][2] = { tag: 'label', value: function () { return _this.monthNames[_this.selectedDate.getMonth()]; } };
     /* Day names */
     this.elements[2] = { tag: 'div', children: [], class: 'days-names' }
     for (var i = 0; i < DAYS_A_WEEK; i++) {
