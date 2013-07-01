@@ -65,8 +65,6 @@ With jQuery:
 Interacting with datepicker
 ----------
 
-The following are not available on the jQuery plugin.
-
 Going back and forth in months programatically.
 
 ```javascript
