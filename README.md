@@ -29,6 +29,47 @@ With jQuery:
 $('#date').datepicker();
 ```
 
+Interacting with datepicker
+----------
+
+Going back and forth in months programatically.
+
+```javascript
+/* Create datepicker with current date set to today.
+   July 1st. */
+var datepicker = new Datepicker(...);
+
+/* Change date to 2 months later. */
+datepicker.incrementMonth(2);
+
+/* Change it back to July 1st. */
+datepicker.incrementMonth(-2);
+
+/* Move to the next year. */
+datepicker.incrementMonth(12);
+
+/* Move back to the year selected before. */
+datepicker.incrementMonth(-12);
+```
+
+Changing selected date.
+
+```javascript
+/* New datepicker with today's date. July 1st. */
+var datepicker = new Datepicker(...);
+
+/* Make it select my birthday. */
+var myBirthday = new Date('6/22/2013');
+datepicker.setSelectedDate(myBirthday);
+```
+
+Re-build datepicker.
+
+```javascript
+var datepicker = new Datepicker(...);
+datepicker.build();
+```
+
 Actually getting a date from datepicker
 ----------
 
