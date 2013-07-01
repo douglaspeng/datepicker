@@ -173,6 +173,7 @@ To-do
 -----------
 * Build with Grunt.
 * Add tests.
+* Something that seemed extremely important but I've forgotten.
 
 Contributing
 -----------
