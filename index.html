@@ -12,7 +12,7 @@
 
     <script src="datepicker.js"></script>
     <script>
-      new Datepicker(document.getElementById('date'), {
+      window.datepicker = new Datepicker(document.getElementById('date'), {
         onDateChanged: function (newDate) {
           document.getElementById('selected').innerHTML = newDate;
         }

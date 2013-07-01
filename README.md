@@ -39,11 +39,14 @@ Going back and forth in months programatically.
    July 1st. */
 var datepicker = new Datepicker(...);
 
+/* Select August 1st. */
+datepicker.incrementMonth();
+
 /* Change date to 2 months later. */
 datepicker.incrementMonth(2);
 
 /* Change it back to July 1st. */
-datepicker.incrementMonth(-2);
+datepicker.incrementMonth(-3);
 
 /* Move to the next year. */
 datepicker.incrementMonth(12);

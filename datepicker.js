@@ -96,7 +96,7 @@
     return _build(node);
   };
 
-  function constructor(element, options) {
+  function Datepicker(element, options) {
     var _this = this;
 
     options = options || {};
@@ -135,27 +135,39 @@
     this.setSelectedDate(today);
   }
 
-  constructor.prototype.incrementMonth = function (amount) {
+  Datepicker.prototype.incrementMonth = function (amount) {
+    /* Increase by one if no amount is passed. */
+    amount = amount || 1;
+
     var month = this.selectedDate.getMonth();
     this.selectedDate.setMonth(month + amount);
     this.build();
+
+    return this.selectedDate;
   };
 
-  constructor.prototype.setSelectedDate = function (date) {
+  Datepicker.prototype.setSelectedDate = function (date) {
+    /* Throw error if no date is passed */
+    if (!date) { throw new Error('You must provide a new date to select!'); }
+
     this.selectedDate = date;
     this.build();
     if (typeof this.onDateChanged === 'function') {
       this.onDateChanged(date);
     }
+
+    return this.selectedDate;
   };
 
-  constructor.prototype.build = function () {
+  Datepicker.prototype.build = function () {
     /* Build one by one */
     for (var i = 0, max = this.elements.length; i < max; i++) {
       this.container.appendChild(buildNode.call(this, this.elements[i]));
     }
+
+    return this.container;
   };
 
-  return constructor;
+  return Datepicker;
 
 }());
