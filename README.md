@@ -32,6 +32,8 @@ $('#date').datepicker();
 Interacting with datepicker
 ----------
 
+The following are not available on the jQuery plugin.
+
 Going back and forth in months programatically.
 
 ```javascript
@@ -71,6 +73,13 @@ Re-build datepicker.
 ```javascript
 var datepicker = new Datepicker(...);
 datepicker.build();
+```
+
+Remove datepicker completely.
+
+```javascript
+var datepicker = new Datepicker(...);
+datepicker.destroy();
 ```
 
 Actually getting a date from datepicker

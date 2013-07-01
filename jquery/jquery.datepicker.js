@@ -8,7 +8,6 @@
     return $(this);
   };
 
-
   var Datepicker = (function () {
 
     var DAYS_A_WEEK = 7
@@ -105,7 +104,27 @@
         return node['element'];
       }
       return _build(node);
-    };
+    }
+
+    function destroyNode(node) {
+      function _destroy(node) {
+        if ('children' in node) {
+          for (i = 0, max = node['children'].length; i < max; i++) {
+            _destroy(node['children'][i]);
+          }
+        }
+
+        /* Remove element from DOM. */
+        node['element'].parentNode.removeChild(node['element']);
+        /* Remove reference to invisible DOM element. */
+        node['element'] = null;
+        delete node['element'];
+
+        return node;
+      }
+
+      return _destroy(node);
+    }
 
     function Datepicker(element, options) {
       var _this = this;
@@ -179,9 +198,21 @@
       return this.container;
     };
 
+    Datepicker.prototype.destroy = function () {
+      for (var i = 0, max = this.elements.length; i < max; i++) {
+        destroyNode.call(this, this.elements[i]);
+      }
+
+      /* Remove from DOM. */
+      this.container.parentNode.removeChild(this.container);;
+      /* Destroy reference to invisible DOM element. */
+      this.container = null;
+
+      return this.selectedDate;
+    };
+
     return Datepicker;
 
   }());
 
 })(jQuery);
- 
