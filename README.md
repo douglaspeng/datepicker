@@ -15,9 +15,32 @@ Standalone
 <script>
   var elem = document.querySelector('#my-datepicker');
 
-  new Datepicker(elem);
+  new Datepicker(elem, {
+    onDateChanged: function (selectedDate) {
+      console.log(selectedDate);
+    }
+  });
 
   elem.datepicker.incrementMonth();
+</script>
+```
+
+With AngularJS
+
+```html
+<sexy-datepicker on-data-changed="dateChangedHandler"></sexy-datepicker>
+
+<script src="angular-1.1.5.js"></script>
+<script src="angular.datepicker.min.js"></script>
+<script>
+  angular.module('myApp', ['sexyDatepicker'])
+    .controller('myController', function ($scope, $element) {
+      $scope.dateChangedHandler = function (selectedDate) {
+        console.log(selectedDate);
+      };
+
+      $element.find('sexy-datepicker').datepicker.incrementMonth();
+    });
 </script>
 ```
 
@@ -29,7 +52,11 @@ With jQuery:
 <script src="jquery.js"></script>
 <script src="jquery.datepicker.min.js"></script>
 <script>
-  $('#my-datepicker').datepicker();
+  $('#my-datepicker').datepicker({
+    onDateChanged: function (selectedDate) {
+      console.log(selectedDate);
+    }
+  });
 
   $('#my-datepicker').get(0).datepicker.incrementMonth();
 </script>
@@ -130,6 +157,22 @@ new Datepicker(elem, {
   monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'],
   dayNames: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado']
 })
+```
+
+When using the AngularJS directive:
+
+```html
+<!-- Add `month-names` and `day-names` attributes to element. -->
+<sexy-datepicker month-names="months" day-names="days" on-date-changed="dateChangedHandler"></sexy-datepicker>
+```
+
+```javascript
+angular.module('myApp', ['sexyDatepicker'])
+  .controller('myController', function ($scope) {
+    /* Create arrays with name on the $scope. */
+    $scope.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    $scope.days = ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'];
+  });
 ```
 
 To-do
