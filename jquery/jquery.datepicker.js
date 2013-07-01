@@ -4,7 +4,10 @@
     $(this).each(function (index, object) {
       new Datepicker(object, options)
     });
+
+    return $(this);
   };
+
 
   var Datepicker = (function () {
 
@@ -24,60 +27,7 @@
       return monthDays[month]
     }
 
-    function constructor(element, options) {
-      var _this = this;
-
-      options = options || {};
-
-      this.onDateChanged = options.onDateChanged;
-      this.container = element;
-      this.monthNames = options.monthNames || months;
-      this.dayNames = options.dayNames || days;
-
-      /* Calendar DOM element tree */
-      this.elements = [];
-      /* Year */
-      this.elements[0] = { tag: 'div', children: [], class: 'year' };
-      this.elements[0]['children'][0] = { tag: 'a', class: 'dec', onclick: function () { _this.incrementMonth(-12); return false; } };
-      this.elements[0]['children'][1] = { tag: 'a', class: 'inc', onclick: function () { _this.incrementMonth(12); return false; } };
-      this.elements[0]['children'][2] = { tag: 'label', value: function () { return _this.selectedDate.getFullYear(); } };
-      /* Month */
-      this.elements[1] = { tag: 'div', children: [], class: 'month' };
-      this.elements[1]['children'][0] = { tag: 'a', class: 'dec', onclick: function () { _this.incrementMonth(-1); return false; } };
-      this.elements[1]['children'][1] = { tag: 'a', class: 'inc', onclick: function () { _this.incrementMonth(1); return false; } }
-      this.elements[1]['children'][2] = { tag: 'label', value: function () { return _this.monthNames[_this.selectedDate.getMonth()]; } };
-      /* Day names */
-      this.elements[2] = { tag: 'div', children: [], class: 'days-names' }
-      for (var i = 0; i < DAYS_A_WEEK; i++) {
-        this.elements[2]['children'][i] = { tag: 'label', value: _this.dayNames[i] };
-      }
-      /* Dates */
-      this.elements[3] = { tag: 'div', children: [], class: 'days' };
-      for (var i = 0; i < MAX_WEEKS_IN_MONTH; i++) {
-        this.elements[3]['children'][i] = { tag: 'div', children: [], class: 'days-row' }
-        for (var j = 0; j < DAYS_A_WEEK; j++) {
-          this.elements[3]['children'][i]['children'][j] = { tag: 'div', data: { row: i, col: j }, beforebuild: _this.buildDay };
-        }
-      }
-
-      this.setSelectedDate(today);
-    }
-
-    constructor.prototype.incrementMonth = function (amount) {
-      var month = this.selectedDate.getMonth();
-      this.selectedDate.setMonth(month + amount);
-      this.buildAll();
-    };
-
-    constructor.prototype.setSelectedDate = function (date) {
-      this.selectedDate = date;
-      this.buildAll();
-      if (typeof this.onDateChanged === 'function') {
-        this.onDateChanged(date);
-      }
-    };
-
-    constructor.prototype.buildDay = function (node) {
+    function buildDay(node) {
       var _this = this
         , firstDay = new Date(this.selectedDate)
         , currentDay = new Date(this.selectedDate)
@@ -102,12 +52,12 @@
         _this.setSelectedDate(currentDay);
       };
       node['value'] = currentDay.getDate();
-    };
+    }
 
-    constructor.prototype.build = function (node) {
+    function buildNode(node) {
       var _this = this;
 
-      function buildNode(node) {
+      function _build(node) {
         var element, i, max;
 
         /* Run before build */
@@ -148,23 +98,88 @@
         /* Go through children. */
         if ('children' in node) {
           for (i = 0, max = node['children'].length; i < max; i++) {
-            node['element'].appendChild(buildNode(node['children'][i]));
+            node['element'].appendChild(_build(node['children'][i]));
           }
         }
 
         return node['element'];
       }
-      return buildNode(node);
+      return _build(node);
     };
 
-    constructor.prototype.buildAll = function () {
+    function Datepicker(element, options) {
+      var _this = this;
+
+      options = options || {};
+
+      this.onDateChanged = options.onDateChanged;
+      this.container = element;
+      this.monthNames = options.monthNames || months;
+      this.dayNames = options.dayNames || days;
+
+      /* Calendar DOM element tree */
+      this.elements = [];
+      /* Year */
+      this.elements[0] = { tag: 'div', children: [], class: 'year' };
+      this.elements[0]['children'][0] = { tag: 'a', class: 'dec', onclick: function () { _this.incrementMonth(-12); return false; } };
+      this.elements[0]['children'][1] = { tag: 'a', class: 'inc', onclick: function () { _this.incrementMonth(12); return false; } };
+      this.elements[0]['children'][2] = { tag: 'label', value: function () { return _this.selectedDate.getFullYear(); } };
+      /* Month */
+      this.elements[1] = { tag: 'div', children: [], class: 'month' };
+      this.elements[1]['children'][0] = { tag: 'a', class: 'dec', onclick: function () { _this.incrementMonth(-1); return false; } };
+      this.elements[1]['children'][1] = { tag: 'a', class: 'inc', onclick: function () { _this.incrementMonth(1); return false; } }
+      this.elements[1]['children'][2] = { tag: 'label', value: function () { return _this.monthNames[_this.selectedDate.getMonth()]; } };
+      /* Day names */
+      this.elements[2] = { tag: 'div', children: [], class: 'days-names' }
+      for (var i = 0; i < DAYS_A_WEEK; i++) {
+        this.elements[2]['children'][i] = { tag: 'label', value: _this.dayNames[i] };
+      }
+      /* Dates */
+      this.elements[3] = { tag: 'div', children: [], class: 'days' };
+      for (var i = 0; i < MAX_WEEKS_IN_MONTH; i++) {
+        this.elements[3]['children'][i] = { tag: 'div', children: [], class: 'days-row' }
+        for (var j = 0; j < DAYS_A_WEEK; j++) {
+          this.elements[3]['children'][i]['children'][j] = { tag: 'div', data: { row: i, col: j }, beforebuild: buildDay };
+        }
+      }
+
+      this.setSelectedDate(today);
+    }
+
+    Datepicker.prototype.incrementMonth = function (amount) {
+      /* Increase by one if no amount is passed. */
+      amount = amount || 1;
+
+      var month = this.selectedDate.getMonth();
+      this.selectedDate.setMonth(month + amount);
+      this.build();
+
+      return this.selectedDate;
+    };
+
+    Datepicker.prototype.setSelectedDate = function (date) {
+      /* Throw error if no date is passed */
+      if (!date) { throw new Error('You must provide a new date to select!'); }
+
+      this.selectedDate = date;
+      this.build();
+      if (typeof this.onDateChanged === 'function') {
+        this.onDateChanged(date);
+      }
+
+      return this.selectedDate;
+    };
+
+    Datepicker.prototype.build = function () {
       /* Build one by one */
       for (var i = 0, max = this.elements.length; i < max; i++) {
-        this.container.appendChild(this.build(this.elements[i]));
+        this.container.appendChild(buildNode.call(this, this.elements[i]));
       }
+
+      return this.container;
     };
 
-    return constructor;
+    return Datepicker;
 
   }());
 
