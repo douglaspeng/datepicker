@@ -6,7 +6,7 @@ The one and only datepicker with no dependencies.
 How to
 ----------
 
-Standalone
+Standalone:
 
 ```html
 <div id="my-datepicker"></div>
@@ -21,25 +21,21 @@ Standalone
     }
   });
 
-  elem.datepicker.incrementMonth();
+  elem.datepicker.setSelectedDate(new Date('6/22'));
 </script>
 ```
 
-With AngularJS
+With AngularJS:
 
 ```html
-<sexy-datepicker on-data-changed="dateChangedHandler"></sexy-datepicker>
+<sexy-datepicker data-ng-model="selectedDate" />
 
 <script src="angular-1.1.5.js"></script>
 <script src="angular.datepicker.min.js"></script>
 <script>
   angular.module('myApp', ['sexyDatepicker'])
-    .controller('myController', function ($scope, $element) {
-      $scope.dateChangedHandler = function (selectedDate) {
-        console.log(selectedDate);
-      };
-
-      $element.find('sexy-datepicker').datepicker.incrementMonth();
+    .controller('myController', function ($scope) {
+      $scope.selectedDate = new Date('6/22');
     });
 </script>
 ```
@@ -58,7 +54,7 @@ With jQuery:
     }
   });
 
-  $('#my-datepicker').get(0).datepicker.incrementMonth();
+  $('#my-datepicker').get(0).datepicker.setSelectedDate(new Date('6/22'));
 </script>
 ```
 

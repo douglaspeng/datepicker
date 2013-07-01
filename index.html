@@ -12,11 +12,13 @@
 
     <script src="datepicker.js"></script>
     <script>
-      window.datepicker = new Datepicker(document.getElementById('date'), {
+      var datepicker = new Datepicker(document.getElementById('date'), {
         onDateChanged: function (newDate) {
           document.getElementById('selected').innerHTML = newDate;
         }
       });
+
+      datepicker.setSelectedDate(new Date('6/22'));
     </script>
 
   </body>

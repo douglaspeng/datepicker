@@ -213,13 +213,20 @@ angular.module('sexyDatepicker', [])
     return {
       restrict: 'E',
       link: function (scope, elem, attrs) {
-        var options = {};
+        var options = {},
+            datepicker;
 
-        if (!!attrs.onDateChanged) { options.onDateChanged = scope[attrs.onDateChanged]; }
         if (!!attrs.monthNames) { options.monthNames = scope[attrs.monthNames]; }
         if (!!attrs.dayNames) { options.dayNames = scope[attrs.dayNames]; }
 
-        new Datepicker(elem[0], options);
+        /* Watch ngModel */
+        if (!!attrs.ngModel) {
+          scope.$watch(attrs.ngModel, function (newDate) {
+            datepicker.setSelectedDate(newDate);
+          });
+        }
+
+        datepicker = new Datepicker(elem[0], options);
       }
     };
   });

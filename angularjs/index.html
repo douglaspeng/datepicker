@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html data-ng-app="myApp">
+  <head>
+    <link href="../datepicker.css" rel="stylesheet" />
+  </head>
+  <body>
+
+    <div id="center" data-ng-controller="myController">
+      <div id="date">
+        <sexy-datepicker data-ng-model="selectedDate" />
+      </div>
+      <div id="selected">{{selectedDate}}</div>
+    </div>
+
+    <script src="angular-1.1.5.js"></script>
+    <script src="angular.datepicker.js"></script>
+    <script>
+      angular.module('myApp', ['sexyDatepicker'])
+        .controller('myController', function ($scope, $element) {
+          $scope.selectedDate = new Date('6/22');
+        });
+    </script>
+
+  </body>
+</html>
