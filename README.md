@@ -117,6 +117,11 @@ new Datepicker(elem, {
 })
 ```
 
+To-do
+-----------
+* Build with Grunt.
+* Add tests.
+
 Contributing
 -----------
 
