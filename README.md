@@ -5,28 +5,34 @@ The one and only datepicker with no dependencies.
 
 How to
 ----------
-* Include
-```
-<script src="datepicker.js"></script>
-```
-* Select
-```
-var elem = document.querySelector('#date');
-```
-* Apply
-```
-new Datepicker(elem);
+
+Standalone
+
+```html
+<div id="my-datepicker"></div>
+
+<script src="datepicker.min.js"></script>
+<script>
+  var elem = document.querySelector('#my-datepicker');
+
+  new Datepicker(elem);
+
+  elem.datepicker.incrementMonth();
+</script>
 ```
 
 With jQuery:
 
-* Include
-```
-<script src="jquery.datepicker.js"></script>
-```
-* Apply
-```
-$('#date').datepicker();
+```html
+<div id="my-datepicker"></div>
+
+<script src="jquery.js"></script>
+<script src="jquery.datepicker.min.js"></script>
+<script>
+  $('#my-datepicker').datepicker();
+
+  $('#my-datepicker').get(0).datepicker.incrementMonth();
+</script>
 ```
 
 Interacting with datepicker

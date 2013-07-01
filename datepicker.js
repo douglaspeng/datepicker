@@ -152,6 +152,9 @@
       }
     }
 
+    /* Link DOM element with Datepicker instance. */
+    this.container.datepicker = this;
+
     this.setSelectedDate(today);
   }
 
