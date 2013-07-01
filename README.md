@@ -157,7 +157,7 @@ When using the AngularJS directive:
 
 ```html
 <!-- Add `month-names` and `day-names` attributes to element. -->
-<sexy-datepicker month-names="months" day-names="days" on-date-changed="dateChangedHandler"></sexy-datepicker>
+<sexy-datepicker month-names="months" day-names="days" />
 ```
 
 ```javascript
