@@ -173,6 +173,7 @@ To-do
 -----------
 * Build with Grunt.
 * Add tests.
+* Deal with AngularJS's two-way binding.
 * Something that seemed extremely important but I've forgotten.
 
 Contributing

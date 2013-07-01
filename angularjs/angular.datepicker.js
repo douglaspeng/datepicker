@@ -173,7 +173,7 @@ angular.module('sexyDatepicker', [])
 
       Datepicker.prototype.setSelectedDate = function (date) {
         /* Throw error if no date is passed */
-        if (!date) { throw new Error('You must provide a new date to select!'); }
+        if (!date || (!!this.selectedDate && this.selectedDate.getTime() === date.getTime())) { return; }
 
         this.selectedDate = date;
         this.build();
@@ -224,6 +224,10 @@ angular.module('sexyDatepicker', [])
           scope.$watch(attrs.ngModel, function (newDate) {
             datepicker.setSelectedDate(newDate);
           });
+          options.onDateChanged = function (selectedDate) {
+            scope[attrs.ngModel] = selectedDate;
+            scope.$apply();
+          };
         }
 
         datepicker = new Datepicker(elem[0], options);

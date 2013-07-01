@@ -1,4 +1,4 @@
- var Datepicker = (function () {
+var Datepicker = (function () {
 
   var DAYS_A_WEEK = 7
     , MAX_WEEKS_IN_MONTH = 6
@@ -171,7 +171,7 @@
 
   Datepicker.prototype.setSelectedDate = function (date) {
     /* Throw error if no date is passed */
-    if (!date) { throw new Error('You must provide a new date to select!'); }
+    if (!date || (!!this.selectedDate && this.selectedDate.getTime() === date.getTime())) { return; }
 
     this.selectedDate = date;
     this.build();
