@@ -155,27 +155,34 @@ var Datepicker = (function () {
     /* Link DOM element with Datepicker instance. */
     this.container.datepicker = this;
 
-    this.setSelectedDate(today);
+    /* Initialize selected date */
+    if (options.selectedDate) {
+      this.setSelectedDate(options.selectedDate, true);
+    }
+    else {
+      this.setSelectedDate(today);
+    }
   }
 
   Datepicker.prototype.incrementMonth = function (amount) {
     /* Increase by one if no amount is passed. */
     amount = amount || 1;
 
-    var month = this.selectedDate.getMonth();
-    this.selectedDate.setMonth(month + amount);
-    this.build();
+    var month = this.selectedDate.getMonth()
+      , newDate = new Date(this.selectedDate);
 
-    return this.selectedDate;
+    newDate.setMonth(month + amount);
+
+    return this.setSelectedDate(newDate);
   };
 
-  Datepicker.prototype.setSelectedDate = function (date) {
+  Datepicker.prototype.setSelectedDate = function (date, suppressCallback) {
     /* Throw error if no date is passed */
     if (!date || (!!this.selectedDate && this.selectedDate.getTime() === date.getTime())) { return; }
 
     this.selectedDate = date;
     this.build();
-    if (typeof this.onDateChanged === 'function') {
+    if (typeof this.onDateChanged === 'function' && !suppressCallback) {
       this.onDateChanged(date);
     }
 

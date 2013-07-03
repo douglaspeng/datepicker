@@ -112,13 +112,23 @@ datepicker.destroy();
 Actually getting a date from datepicker
 ----------
 
-Each time the date changes and when it first starts up, the `onDateChanged` option will be called with the selected date as its first argument.
-
-Pass it an options object as the second argument.
+Each time the date changes, the `onDateChanged` option will be called with the selected date as its first argument.
 
 ```javascript
 /* Print the new date on the console */
 new Datepicker(elem, {
+  onDateChanged: function (newDate) {
+    console.log(newDate);
+  }
+});
+```
+
+It'll also call `onDateChanged` when created, unless you pass a date in the options.
+
+```javascript
+/* This will not trigger onDateChanged callback */
+new Datepicker(elem, {
+  selectedDate: new Date('6/22'),
   onDateChanged: function (newDate) {
     console.log(newDate);
   }
