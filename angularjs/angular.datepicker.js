@@ -1,5 +1,5 @@
 angular.module('sexyDatepicker', [])
-  .directive('sexyDatepicker', function () {
+  .directive('sexyDatepicker', ['$parse', function ($parse) {
     var Datepicker = (function () {
 
       var DAYS_A_WEEK = 7
@@ -157,27 +157,34 @@ angular.module('sexyDatepicker', [])
         /* Link DOM element with Datepicker instance. */
         this.container.datepicker = this;
 
-        this.setSelectedDate(today);
+        /* Initialize selected date */
+        if (options.selectedDate) {
+          this.setSelectedDate(options.selectedDate, true);
+        }
+        else {
+          this.setSelectedDate(today);
+        }
       }
 
       Datepicker.prototype.incrementMonth = function (amount) {
         /* Increase by one if no amount is passed. */
         amount = amount || 1;
 
-        var month = this.selectedDate.getMonth();
-        this.selectedDate.setMonth(month + amount);
-        this.build();
+        var month = this.selectedDate.getMonth()
+          , newDate = new Date(this.selectedDate);
 
-        return this.selectedDate;
+        newDate.setMonth(month + amount);
+
+        return this.setSelectedDate(newDate);
       };
 
-      Datepicker.prototype.setSelectedDate = function (date) {
+      Datepicker.prototype.setSelectedDate = function (date, suppressCallback) {
         /* Throw error if no date is passed */
         if (!date || (!!this.selectedDate && this.selectedDate.getTime() === date.getTime())) { return; }
 
         this.selectedDate = date;
         this.build();
-        if (typeof this.onDateChanged === 'function') {
+        if (typeof this.onDateChanged === 'function' && !suppressCallback) {
           this.onDateChanged(date);
         }
 
@@ -221,11 +228,12 @@ angular.module('sexyDatepicker', [])
 
         /* Watch ngModel */
         if (!!attrs.ngModel) {
+          options.selectedDate = scope[attrs.ngModel] || new Date();
           scope.$watch(attrs.ngModel, function (newDate) {
             datepicker.setSelectedDate(newDate);
           });
           options.onDateChanged = function (selectedDate) {
-            scope[attrs.ngModel] = selectedDate;
+            $parse(attrs.ngModel).assign(scope, selectedDate);
             scope.$apply();
           };
         }
@@ -233,4 +241,4 @@ angular.module('sexyDatepicker', [])
         datepicker = new Datepicker(elem[0], options);
       }
     };
-  });
+  }]);
