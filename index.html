@@ -1,0 +1,253 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Datepicker by banafederico</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Datepicker</h1>
+        <p>The one and only datepicker with no dependencies. Comes in different flavors: Standalone, jQuery plugin and AngularJS directive.</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/banafederico/datepicker" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/banafederico/datepicker/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/banafederico/datepicker/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a name="datepicker" class="anchor" href="#datepicker"><span class="octicon octicon-link"></span></a>Datepicker</h1>
+
+<p>The one and only datepicker with no dependencies.</p>
+
+<h2>
+<a name="how-to" class="anchor" href="#how-to"><span class="octicon octicon-link"></span></a>How to</h2>
+
+<p>Standalone:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"my-datepicker"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"datepicker.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="kd">var</span> <span class="nx">elem</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#my-datepicker'</span><span class="p">);</span>
+
+  <span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">onDateChanged</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">selectedDate</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">selectedDate</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">elem</span><span class="p">.</span><span class="nx">datepicker</span><span class="p">.</span><span class="nx">setSelectedDate</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s1">'6/22'</span><span class="p">));</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<p>With AngularJS:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;sexy</span><span class="na">-datepicker</span> <span class="na">data-ng-model=</span><span class="s">"selectedDate"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"angular-1.1.5.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"angular.datepicker.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'sexyDatepicker'</span><span class="p">])</span>
+    <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'myController'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$scope</span><span class="p">.</span><span class="nx">selectedDate</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s1">'6/22'</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<p>With jQuery:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"my-datepicker"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.datepicker.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#my-datepicker'</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">({</span>
+    <span class="nx">onDateChanged</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">selectedDate</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">selectedDate</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'#my-datepicker'</span><span class="p">).</span><span class="nx">get</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">datepicker</span><span class="p">.</span><span class="nx">setSelectedDate</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s1">'6/22'</span><span class="p">));</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></div>
+
+<h2>
+<a name="interacting-with-datepicker" class="anchor" href="#interacting-with-datepicker"><span class="octicon octicon-link"></span></a>Interacting with datepicker</h2>
+
+<p>Going back and forth in months programatically.</p>
+
+<div class="highlight"><pre><span class="cm">/* Create datepicker with current date set to today.</span>
+<span class="cm">   July 1st. */</span>
+<span class="kd">var</span> <span class="nx">datepicker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(...);</span>
+
+<span class="cm">/* Select August 1st. */</span>
+<span class="nx">datepicker</span><span class="p">.</span><span class="nx">incrementMonth</span><span class="p">();</span>
+
+<span class="cm">/* Change date to 2 months later. */</span>
+<span class="nx">datepicker</span><span class="p">.</span><span class="nx">incrementMonth</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="cm">/* Change it back to July 1st. */</span>
+<span class="nx">datepicker</span><span class="p">.</span><span class="nx">incrementMonth</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="cm">/* Move to the next year. */</span>
+<span class="nx">datepicker</span><span class="p">.</span><span class="nx">incrementMonth</span><span class="p">(</span><span class="mi">12</span><span class="p">);</span>
+
+<span class="cm">/* Move back to the year selected before. */</span>
+<span class="nx">datepicker</span><span class="p">.</span><span class="nx">incrementMonth</span><span class="p">(</span><span class="o">-</span><span class="mi">12</span><span class="p">);</span>
+</pre></div>
+
+<p>Changing selected date.</p>
+
+<div class="highlight"><pre><span class="cm">/* New datepicker with today's date. July 1st. */</span>
+<span class="kd">var</span> <span class="nx">datepicker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(...);</span>
+
+<span class="cm">/* Make it select my birthday. */</span>
+<span class="kd">var</span> <span class="nx">myBirthday</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s1">'6/22/2013'</span><span class="p">);</span>
+<span class="nx">datepicker</span><span class="p">.</span><span class="nx">setSelectedDate</span><span class="p">(</span><span class="nx">myBirthday</span><span class="p">);</span>
+</pre></div>
+
+<p>Re-build datepicker.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">datepicker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(...);</span>
+<span class="nx">datepicker</span><span class="p">.</span><span class="nx">build</span><span class="p">();</span>
+</pre></div>
+
+<p>Remove datepicker completely.</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">datepicker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(...);</span>
+<span class="nx">datepicker</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+</pre></div>
+
+<h2>
+<a name="actually-getting-a-date-from-datepicker" class="anchor" href="#actually-getting-a-date-from-datepicker"><span class="octicon octicon-link"></span></a>Actually getting a date from datepicker</h2>
+
+<p>Each time the date changes, the <code>onDateChanged</code> option will be called with the selected date as its first argument.</p>
+
+<div class="highlight"><pre><span class="cm">/* Print the new date on the console */</span>
+<span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">onDateChanged</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newDate</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newDate</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<p>It'll also call <code>onDateChanged</code> when created, unless you pass a date in the options.</p>
+
+<div class="highlight"><pre><span class="cm">/* This will not trigger onDateChanged callback */</span>
+<span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">selectedDate</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s1">'6/22'</span><span class="p">),</span>
+  <span class="nx">onDateChanged</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newDate</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newDate</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2>
+<a name="more-options" class="anchor" href="#more-options"><span class="octicon octicon-link"></span></a>More options</h2>
+
+<p>Override names of months...</p>
+
+<div class="highlight"><pre><span class="cm">/* Months in spanish */</span>
+<span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">onDateChanged</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newDate</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newDate</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">monthNames</span><span class="o">:</span> <span class="p">[</span><span class="s1">'Enero'</span><span class="p">,</span> <span class="s1">'Febrero'</span><span class="p">,</span> <span class="s1">'Marzo'</span><span class="p">,</span> <span class="s1">'Abril'</span><span class="p">,</span> <span class="s1">'Mayo'</span><span class="p">,</span> <span class="s1">'Junio'</span><span class="p">,</span> <span class="s1">'Julio'</span><span class="p">,</span> <span class="s1">'Agosto'</span><span class="p">,</span> <span class="s1">'Setiembre'</span><span class="p">,</span> <span class="s1">'Octubre'</span><span class="p">,</span> <span class="s1">'Noviembre'</span><span class="p">,</span> <span class="s1">'Diciembre'</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+
+<p>...and names of days too.</p>
+
+<div class="highlight"><pre><span class="cm">/* Months and days in spanish */</span>
+<span class="k">new</span> <span class="nx">Datepicker</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">onDateChanged</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">newDate</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">newDate</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">monthNames</span><span class="o">:</span> <span class="p">[</span><span class="s1">'Enero'</span><span class="p">,</span> <span class="s1">'Febrero'</span><span class="p">,</span> <span class="s1">'Marzo'</span><span class="p">,</span> <span class="s1">'Abril'</span><span class="p">,</span> <span class="s1">'Mayo'</span><span class="p">,</span> <span class="s1">'Junio'</span><span class="p">,</span> <span class="s1">'Julio'</span><span class="p">,</span> <span class="s1">'Agosto'</span><span class="p">,</span> <span class="s1">'Setiembre'</span><span class="p">,</span> <span class="s1">'Octubre'</span><span class="p">,</span> <span class="s1">'Noviembre'</span><span class="p">,</span> <span class="s1">'Diciembre'</span><span class="p">],</span>
+  <span class="nx">dayNames</span><span class="o">:</span> <span class="p">[</span><span class="s1">'Domingo'</span><span class="p">,</span> <span class="s1">'Lunes'</span><span class="p">,</span> <span class="s1">'Martes'</span><span class="p">,</span> <span class="s1">'Miercoles'</span><span class="p">,</span> <span class="s1">'Jueves'</span><span class="p">,</span> <span class="s1">'Viernes'</span><span class="p">,</span> <span class="s1">'Sabado'</span><span class="p">]</span>
+<span class="p">})</span>
+</pre></div>
+
+<p>When using the AngularJS directive:</p>
+
+<div class="highlight"><pre><span class="c">&lt;!-- Add `month-names` and `day-names` attributes to element. --&gt;</span>
+<span class="nt">&lt;sexy</span><span class="na">-datepicker</span> <span class="na">month-names=</span><span class="s">"months"</span> <span class="na">day-names=</span><span class="s">"days"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'sexyDatepicker'</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">'myController'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* Create arrays with name on the $scope. */</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">months</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Enero'</span><span class="p">,</span> <span class="s1">'Febrero'</span><span class="p">,</span> <span class="s1">'Marzo'</span><span class="p">,</span> <span class="s1">'Abril'</span><span class="p">,</span> <span class="s1">'Mayo'</span><span class="p">,</span> <span class="s1">'Junio'</span><span class="p">,</span> <span class="s1">'Julio'</span><span class="p">,</span> <span class="s1">'Agosto'</span><span class="p">,</span> <span class="s1">'Setiembre'</span><span class="p">,</span> <span class="s1">'Octubre'</span><span class="p">,</span> <span class="s1">'Noviembre'</span><span class="p">,</span> <span class="s1">'Diciembre'</span><span class="p">];</span>
+    <span class="nx">$scope</span><span class="p">.</span><span class="nx">days</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Domingo'</span><span class="p">,</span> <span class="s1">'Lunes'</span><span class="p">,</span> <span class="s1">'Martes'</span><span class="p">,</span> <span class="s1">'Miercoles'</span><span class="p">,</span> <span class="s1">'Jueves'</span><span class="p">,</span> <span class="s1">'Viernes'</span><span class="p">,</span> <span class="s1">'Sabado'</span><span class="p">];</span>
+  <span class="p">});</span>
+</pre></div>
+
+<h2>
+<a name="to-do" class="anchor" href="#to-do"><span class="octicon octicon-link"></span></a>To-do</h2>
+
+<ul>
+<li>Build with Grunt.</li>
+<li>Add tests.</li>
+<li>Something that seemed extremely important but I've forgotten.</li>
+</ul><h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Seriously? Thank you!</p>
+
+<h2>
+<a name="use-it" class="anchor" href="#use-it"><span class="octicon octicon-link"></span></a>Use it</h2>
+
+<p>Copyright (c) 2013 Federico Baña.</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/banafederico">banafederico</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
