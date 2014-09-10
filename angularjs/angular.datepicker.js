@@ -1,5 +1,5 @@
-angular.module('sexyDatepicker', [])
-  .directive('sexyDatepicker', ['$parse', function ($parse) {
+angular.module('pubDatepicker', [])
+  .directive('pubDatepicker', ['$parse', function ($parse) {
     var Datepicker = (function () {
 
       var DAYS_A_WEEK = 7
@@ -234,7 +234,6 @@ angular.module('sexyDatepicker', [])
           });
           options.onDateChanged = function (selectedDate) {
             $parse(attrs.ngModel).assign(scope, selectedDate);
-            scope.$apply();
           };
         }
 
